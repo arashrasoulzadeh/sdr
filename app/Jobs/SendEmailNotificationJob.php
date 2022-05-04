@@ -35,7 +35,7 @@ class SendEmailNotificationJob extends Job
         $name = $this->data[ 'name' ];
         $text = $this->data[ 'message' ];
 
-        Mail::send('email', [ 'message' => $text ], function( $message ) use ( $destination, $text, $name )
+        Mail::raw( $text, function( $message ) use ( $destination, $name )
         {
             $message->to( $destination, $name )->subject( 'sample' );
         });
