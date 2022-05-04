@@ -35,12 +35,14 @@ class NotificationQueueController extends Controller
             return $validator->errors();
         }
 
-        return $this->notificationRepository->queueNotification
+        $result = $this->notificationRepository->queueNotification
         (
             $request->input( 'to' ),
             $request->input( 'name' ),
             $request->input( 'message' ),
             $request->input( 'type' )
         );
+
+        return [];
     }
 }
