@@ -15,4 +15,13 @@ interface NotificationRepositoryInterface
      * @return mixed
      */
     public function queueNotification( $to, $name, $message, $type );
+
+    /**
+     * mark notification as done.
+     *
+     * @param $id
+     *
+     * @return void
+     */
+    public function markNotificationAsDone( $id ): void;
 }

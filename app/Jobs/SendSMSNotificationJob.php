@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Contracts\NotificationRepositoryInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
@@ -19,7 +20,7 @@ class SendSMSNotificationJob extends Job
      */
     public function __construct( array $data = [] )
     {
-        $this->data = Arr::only( $data, [ 'to', 'name', 'message' ] );
+        $this->data = Arr::only( $data, [ 'to', 'name', 'message', 'row_id' ] );
     }
 
     /**
@@ -27,14 +28,17 @@ class SendSMSNotificationJob extends Job
      *
      * @return void
      */
-    public function handle()
+    public function handle( NotificationRepositoryInterface $notificationRepository )
     {
         $this->validate();
         $username = 'guest';
         $password = 'guest';
         $destination = $this->data[ 'to' ];
+        $id = $this->data[ 'row_id' ];
         $text = $this->data[ 'message' ];
         Http::post("https://se-1.cellsynt.net/sms.php?%20username=${username}&password=${password}&destination={$destination}&type=text&charset=UTF-%208&text={$text}&originatortype=alpha&originator=Demo");
+        dump( 'processed notification ' . $id );
+        $notificationRepository->markNotificationAsDone( $id );
     }
 
     /**

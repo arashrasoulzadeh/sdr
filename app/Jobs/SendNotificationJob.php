@@ -18,7 +18,7 @@ class SendNotificationJob extends Job
      */
     public function __construct( array $data = [] )
     {
-        $this->data = Arr::only( $data, [ 'to', 'name', 'message', 'type' ] );
+        $this->data = Arr::only( $data, [ 'row_id', 'to', 'name', 'message', 'type' ] );
     }
 
     /**
@@ -44,7 +44,7 @@ class SendNotificationJob extends Job
      */
     public function validate()
     {
-        if ( !isset( $this->data[ 'to' ], $this->data[ 'name' ], $this->data[ 'message' ], $this->data[ 'type' ] ) )
+        if ( !isset( $this->data[ 'to' ], $this->data[ 'name' ], $this->data[ 'message' ], $this->data[ 'type' ], $this->data[ 'row_id' ] ) )
         {
             throw new \Exception( 'invalid data!' );
         }

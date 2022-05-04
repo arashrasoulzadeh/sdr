@@ -9,7 +9,7 @@ class NotificationEvent extends Event
      *
      * @return void
      */
-    public function __construct( public string $to, public string $name, public string $message, public string $type )
+    public function __construct( public int $row_id, public string $to, public string $name, public string $message, public string $type )
     {
         //
     }

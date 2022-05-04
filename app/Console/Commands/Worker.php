@@ -16,7 +16,7 @@ class Worker extends Command
     {
         $this->info( 'running.' );
         while ( true )
-            Amqp::consume( 'messages', function ( $message, $resolver ) {
+            Amqp::consume( 'notifications', function ( $message, $resolver ) {
                 try {
                     dispatch( new SendNotificationJob( json_decode( $message->body, true ) ) );
                     $this->info( 'consuming ' . $message->body_size . ' bytes of data.' );

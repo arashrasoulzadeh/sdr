@@ -28,6 +28,6 @@ class NotificationListener implements ShouldQueue
      */
     public function handle( NotificationEvent $event)
     {
-        Amqp::publish( 'notification', json_encode( $event ) , [ 'queue' => 'messages' ] );
+        Amqp::publish( 'notification', json_encode( $event ) , [ 'queue' => 'notifications' ] );
     }
 }
