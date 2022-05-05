@@ -32,7 +32,7 @@ class NotificationQueueController extends Controller
         );
 
         if ( count( $validator->errors() ) ) {
-            return $validator->errors();
+            return response($validator->errors())->setStatusCode( 422 );
         }
 
         $result = $this->notificationRepository->queueNotification
